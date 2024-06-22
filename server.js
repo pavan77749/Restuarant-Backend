@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import testRoutes from './routes/testRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 
 //rest object
@@ -26,6 +27,7 @@ connectDB()
 //URL => http:// localhost:8080
 app.use('/api/v1/test' , testRoutes)
 app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/user', userRoutes)
 
 app.get("/" , (req,res) => {
     return res.status(200).send(`<h1>Welcome to Restaurant Website</h1>`)
