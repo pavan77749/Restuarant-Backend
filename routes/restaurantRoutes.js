@@ -1,14 +1,26 @@
-import express from 'express'
-import { requireSignIn } from '../middleware/authMiddleware.js'
-import { createRestaurantController } from '../controllers/restaurantController.js'
-
+import express from "express";
+import { requireSignIn } from "../middleware/authMiddleware.js";
+import {
+  createRestaurantController,
+  getRestaurantController,
+  getSingleRestaurantController,
+  deleteRestaurantController
+} from "../controllers/restaurantController.js";
 
 //router Object
-const router = express.Router()
+const router = express.Router();
 
 //routes
 //CREATE RESTAURANT
-router.post('/create-restaurant' , requireSignIn, createRestaurantController)
+router.post("/create-restaurant", requireSignIn, createRestaurantController);
 
+//GET ALL RESTAURANT
+router.get("/get-restaurants", getRestaurantController);
 
-export default router
+//GET RESTAURANT BY ID
+router.get("/get-restaurant/:id", getSingleRestaurantController);
+
+//DELETE RESTAURANT
+router.delete('/delete-restaurant/:rid', requireSignIn, deleteRestaurantController)
+
+export default router;
