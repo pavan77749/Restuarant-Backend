@@ -7,6 +7,7 @@ import connectDB from './config/db.js'
 import testRoutes from './routes/testRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import restaurantRoutes from './routes/restaurantRoutes.js'
 
 
 //rest object
@@ -28,6 +29,7 @@ connectDB()
 app.use('/api/v1/test' , testRoutes)
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/restaurant', restaurantRoutes)
 
 app.get("/" , (req,res) => {
     return res.status(200).send(`<h1>Welcome to Restaurant Website</h1>`)
