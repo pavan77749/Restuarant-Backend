@@ -1,4 +1,5 @@
 import foodModel from "../model/foodModel.js";
+import orderModel from "../model/orderModel.js";
 
 export const createFoodController = async (req, res) => {
   try {
@@ -234,3 +235,69 @@ export const deleteFoodController = async (req,res) => {
     }
 }
 
+//place order
+export const placeOrderController = async(req,res) => {
+    try {
+        const {cart} = req.body
+        if(!cart){
+            return res.status(401).send({
+                success:false,
+                message:'Cart Not found'
+            })
+        }
+        let total = 0
+        cart.map((i)=>{
+            total += i.price
+        })
+        const newOrder = new orderModel({
+            foods:cart,
+            payment: total,
+            buyer: req.body.id,
+        })
+        await newOrder.save()
+        res.status(200).send({
+            success:true,
+            message:'Order Placed Successfully',
+            newOrder
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message:'Error in placing an Order',
+            error:error.message
+        })
+    }
+}
+
+//change order status 
+export const changeOrderStatusController = async(req,res) => {
+    try {
+        const orderId = req.params.id
+        if(!orderId){
+            return res.status(401).send({
+                success:false,
+                message:'Order not found'
+            })
+        }
+        const {status} = req.body
+        const order = await orderModel.findByIdAndUpdate(
+            orderId,
+            {status},
+            {new:true}
+        );
+        res.status(200).send({
+            success:true,
+            message:'Order status changed successfully',
+            order
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message:'Error in changing the order Status',
+            error:error.message
+        })
+    }
+}

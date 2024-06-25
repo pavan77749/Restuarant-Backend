@@ -7,8 +7,10 @@ import {
   getFoodRestaurantController,
   updateFoodController,
   deleteFoodController,
-  placeOrderController
+  placeOrderController,
+  changeOrderStatusController
 } from "../controllers/foodController.js";
+
 
 //router object
 const router = express.Router();
@@ -31,6 +33,10 @@ router.put('/update-food/:id', requireSignIn, updateFoodController);
 //delete food
 router.delete('/delete-food/:id',requireSignIn,deleteFoodController);
 
+//place order
+router.post('/place-order', requireSignIn, placeOrderController)
 
+//change the order status
+router.post('/orderStatus/:id', requireSignIn,changeOrderStatusController)
 
 export default router;
