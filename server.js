@@ -9,6 +9,7 @@ import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import restaurantRoutes from './routes/restaurantRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import foodRoutes from './routes/foodRoutes.js'
 
 
 //rest object
@@ -32,6 +33,7 @@ app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/restaurant', restaurantRoutes)
 app.use('/api/v1/category', categoryRoutes)
+app.use('/api/v1/food', foodRoutes)
 
 app.get("/" , (req,res) => {
     return res.status(200).send(`<h1>Welcome to Restaurant Website</h1>`)
